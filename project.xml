@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="" package="random.devin503.characters" version="0.0.1" company="devin503" />
+	<app main="Main" path="Export" file="Ballnutter" />
+	
+	<source path="Source" />
+	
+	<haxelib name="lime" />
+	<haxelib name="flixel" />
+	<haxelib name="flixel-ui" />
+	<haxelib name="flixel-addons" />
+	<haxelib name="openfl" />
+	<!-- haxelib name="systools" /> -->
+	<haxelib name="random" />
+
+	<haxedef name="WINDUSSY" if="debug windows" />
+	<haxedef name="LINUSSY" if="debug linux" />
+	<haxedef name="MACUSSY" if="debug mac" />
+	<haxedef name="ANDRUSSY" if="debug android" />
+	<haxedef name="WEBUSSY" if="debug html5" />
+	<haxedef name="WINDUMB" if="release windows" />
+	<haxedef name="I_USE_ARCH_BTW" if="release linux" />
+	<haxedef name="FIND_ME_SOME_BITCHES" if="release mac" />
+	<haxedef name="ANDROWOID" if="release android" />
+	
+	<assets path="Assets" />
+	<assets path="Assets/Audio" exclude="*.ogg" if="web" />
+	<assets path="Assets/Audio" exclude="*.mp3" unless="web" />
+	
+	<icon path="ARTSHIT/nice.png" />
+</project>
