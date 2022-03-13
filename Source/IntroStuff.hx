@@ -35,6 +35,12 @@ class IntroStuff extends FlxState {
     var background:FlxSprite;
     var cumCam:FlxCamera;
     var yes:Speen;
+    public static var joeMama:Character;
+    public static var cumChat:String = 'cum';
+    public static var PUBLIC_VARS:Array<Dynamic> = [
+        joeMama,
+        cumChat
+    ];
     
     public function new() {
         super();
@@ -64,8 +70,19 @@ class IntroStuff extends FlxState {
             yes.startSpinning();
         });
         var funnyMsg = new FlxText(0, FlxG.height - 30, FlxG.width - 48, 'Change the "picThing" file to change this image!', 24);
-        add(funnyMsg);
         add(background);
         add(yes);
+        add(funnyMsg);
+        setupScreens();
+    }
+
+    function setupScreens() {
+        var tabs = [
+            {name: 'Introduction', label: "Introduction"}
+        ];
+        screens = new FlxUITabMenu(null, tabs);
+        screens.resize(FlxG.width - 100, FlxG.height - 100);
+        screens.screenCenter();
+        add(screens);
     }
 }

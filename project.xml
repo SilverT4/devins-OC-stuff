@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="" package="random.devin503.characters" version="0.0.1" company="devin503" />
+	<meta title="Devin's Character Info Stuff" package="random.devin503.characters" version="0.0.2" company="devin503" />
 	<app main="Main" path="Export" file="Ballnutter" />
 	
 	<source path="Source" />

@@ -7,12 +7,14 @@ import FileUtils;
 using StringTools;
 
 typedef CharProperties = {
-    var AnimArray:Array<CharAnims>;
+    var AnimArray:CharAnims;
     var OffsetArray:Array<CharOffsets>;
+    var ImagePath:String;
 }
 typedef CharAnims = {
     var PrefixAnims:Array<CharAnim_Prefix>;
     var IndicesAnims:Array<CharAnim_Indices>;
+    var allAnims:Array<Dynamic>;
 }
 typedef CharOffsets = {
     var AnimName:String;
@@ -67,6 +69,21 @@ class Character extends FlxSprite {
         FlxG.log.add('Added ' + AnimName + ' to animation list!');
         trace('Added ' + AnimName + ' to animation list!');
     }
+    public function playAnim(AnimName:String) {
+        if (animation.getByName(AnimName) != null) {
+            animation.play(AnimName);
+        } else {
+            FlxG.sound.play(FileUtils.sound('errorSound'));
+            FlxG.log.warn('No animation named ' + AnimName + ', did you add it?');
+        }
+    }
 
+    public function removeAnim(AnimName:String) {
+        if (animation.getByName(AnimName) != null) {
+            animation.remove(AnimName);
+        } else {
+            FlxG.log.warn('No animation named ' + AnimName + ', did you already remove it?');
+        }
+    }
     // public var butWhy:Bool = animation.curAnim.finished;
 }

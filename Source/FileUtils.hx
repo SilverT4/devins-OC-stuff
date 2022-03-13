@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.keyboard.FlxKey;
 import haxe.Json;
 import sys.FileSystem;
 import sys.io.File as SusFile;
@@ -31,41 +32,42 @@ class FileUtils {
         'xml' => '.xml',
         'json' => '.json'
     ];
+    public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO, FlxKey.NUMPADZERO];
+    public static var volKeysUp:Array<FlxKey> = [FlxKey.PLUS, FlxKey.NUMPADPLUS];
+    public static var volKeysDown:Array<FlxKey> = [FlxKey.MINUS, FlxKey.NUMPADMINUS];
     /**Checks if the file exists. The file must have an extension, if it doesn't the game will crash!!
     @since 0.0.1*/
     public static function existential(File:String, ?Path:String):Bool {
         var yes:Bool = false;
         if (Path != null) {
-            if (File.contains('.')) {
-                var bean = File.split('.'); // THIS ASSUMES THE FILE HAS AN EXTENSION!!
-                switch(bean[1]) {
-                    case 'png':
-                        if (FileSystem.exists(defaultPaths[image] + File + commonExtensions[image])) {
-                            yes = true;
-                        }
-                    case 'xml':
-                        if (FileSystem.exists(defaultPaths[image] + File + commonExtensions[xml])) {
-                            yes = true;
-                        }
-                    case bruh:
-                        if (FileSystem.exists(defaultPaths[audio] + File + bruh)) {
-                            yes = true;
-                        }
-                    case 'character':
-                        if (FileSystem.exists(defaultPaths[chara] + File + commonExtensions[chara])) {
-                            yes = true;
-                        }
-                }
-            } else {
-                throw new ValueException('File argument is missing an extension! How do I know what ' + File + ' is?!');
+            if (FileSystem.exists(Path + File)) {
+                yes = true;
             }
         } else {
-            if (File.contains('.')) {
-                if (FileSystem.exists(Path + File)) {
-                    yes = true;
-                }
-            } else {
-                throw new ValueException('File argument is missing an extension! How do I know what' + File + ' is?!');
+            var ben = File.split('.');
+            var exten = ben[1];
+            var neb = bruh.replace('.', '');
+            switch (exten) {
+                case neb:
+                    if (FileSystem.exists(defaultPaths[audio] + File)) {
+                        yes = true;
+                    }
+                case 'json':
+                    if (FileSystem.exists(defaultPaths[json] + File)) {
+                        yes = true;
+                    }
+                case 'character':
+                    if (FileSystem.exists(defaultPaths[chara] + File)) {
+                        yes = true;
+                    }
+                case 'png' | 'xml':
+                    if (FileSystem.exists(defaultPaths[image] + File)) {
+                        yes = true;
+                    }
+                case 'txt':
+                    if (FileSystem.exists(defaultPaths[txt] + File)) {
+                        yes = true;
+                    }
             }
         }
         return yes;
@@ -90,6 +92,7 @@ class FileUtils {
     /**Allows you to load audio. No extension needed as this function will return that along with the path.
     @since 0.0.1*/
     public static function sound(File:String, ?Path:String):String {
+        var audioFileThing:String = '';
         if (Path != null) {
             if (existential(File + bruh, Path)) {
                 audioFileThing = Path + File + bruh;
@@ -181,11 +184,21 @@ class FileUtils {
     public static function externalFile(File:String, Path:String) {
         new sys.io.Process('cmd', ['/c copy ' + File, Path]);
     }
+    /**Allows you to quickly parse a template and save a few seconds typing it out.
+        @since 0.0.2
+        @param Template The template to parse.*/
+    public static function parseTemplate(Template:Dynamic):Dynamic {
+        return Json.parse(Json.stringify(Template));
+    }
+
+    public static function convertToFile(JsonData:Dynamic):String {
+        return Json.stringify(JsonData);
+    }
     static var dataFileThing:String;
     static var charaFileThing:String;
     static var xmlFileThing:String;
     static var imageFileThing:String;
-    static var audioFileThing:String;
+    //static var audioFileThing:String;
     static final image:String = 'image';
     static final audio:String = 'audio';
     static final xml:String = 'xml';

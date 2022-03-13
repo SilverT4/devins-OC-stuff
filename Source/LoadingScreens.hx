@@ -1,5 +1,6 @@
 package;
 
+import characterUtils.CharacterEditorState;
 import flixel.math.FlxRandom;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -8,6 +9,7 @@ import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import flixel.ui.FlxBar;
+import flixel.system.FlxSound;
 import extraShit.Speen;
 import IntroStuff;
 import FileUtils; // if i can fix this it will HOPEFULLY work. lmao
@@ -23,6 +25,7 @@ class StartupScreen extends FlxState {
     var assetsLoaded:Int;
     var assetsToLoad:Array<String> = ['picThing.png'];
     var shitCam:FlxCamera;
+    public static var NavigateSound:FlxSound;
 
     public function new() {
         assetsToLoad.push('xpNavigate' + IntroStuff.sndExtension[IntroStuff.yourPlatform]);
@@ -40,9 +43,12 @@ class StartupScreen extends FlxState {
         add(bar);
         speen = new Speen(0, FlxG.height - 48, true);
         add(speen);
+        NavigateSound = new FlxSound();
+        NavigateSound.loadEmbedded(FileUtils.sound('xpNavigate'));
+        FlxG.sound.cache(FileUtils.sound('xpNavigate'));
         new FlxTimer().start(3, function(tmr:FlxTimer) {
             assetsLoaded += 1;
-            if (assetsLoaded == 2) FlxG.switchState(new IntroStuff());
+            if (assetsLoaded == 2) FlxG.switchState(new CharacterEditorState());
         }, 2);
     }
 }
@@ -69,5 +75,22 @@ class DumbBarTestThing extends FlxState {
         new FlxTimer().start(1, function(tmr:FlxTimer) {
             currentShit += 1;
         }, finish);
+    }
+}
+
+/**This'll be used later on when I figure out the actual character info screen.
+@since 0.0.2 (March 2022) [when I made the class]*/
+class CharacterPreloadScreen extends FlxState {
+    public static var CharLoadingName:String = '';
+    public static var CharLoadingColour:FlxColor;
+    public static var CharFilePath:String = '';
+    public static var PUBLIC_VARS:Array<Dynamic> = [
+        CharLoadingName,
+        CharLoadingColour,
+        CharFilePath
+    ];
+
+    public function new() {
+        super();
     }
 }
