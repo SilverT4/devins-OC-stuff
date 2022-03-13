@@ -23,6 +23,7 @@
 	<haxedef name="I_USE_ARCH_BTW" if="release linux" />
 	<haxedef name="FIND_ME_SOME_BITCHES" if="release mac" />
 	<haxedef name="ANDROWOID" if="release android" />
+	<haxedef name="NOT_MY_FUCKIN_BROWSER" unless="web" />
 	
 	<assets path="Assets" />
 	<assets path="Assets/Audio" exclude="*.ogg" if="web" />

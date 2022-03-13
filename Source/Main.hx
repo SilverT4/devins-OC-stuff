@@ -20,7 +20,7 @@ class Main extends Sprite
 	var zoom:Float = -1;
 	var startFullscreen:Bool = false;
 	public static var fpsVar:FPS;
-	var initialState:Class<FlxState> = IntroStuff;
+	var initialState:Class<FlxState> = LoadingScreens.StartupScreen;
 
 	public static function main():Void {
 		Lib.current.addChild(new Main());

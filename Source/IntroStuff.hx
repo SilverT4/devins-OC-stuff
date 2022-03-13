@@ -13,7 +13,9 @@ import openfl.system.Capabilities;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUI;
 import FileUtils;
-
+import characterUtils.CharacterThings;
+import extraShit.Speen;
+import flixel.util.FlxTimer;
 using StringTools;
 
 /**The main intro screen. This includes a basic explanation of what the user can expect to see.
@@ -32,9 +34,14 @@ class IntroStuff extends FlxState {
     var screens:FlxUITabMenu;
     var background:FlxSprite;
     var cumCam:FlxCamera;
+    var yes:Speen;
     
     public function new() {
         super();
+        if (FlxG.mouse != null) {
+            FlxG.mouse.useSystemCursor = true;
+        }
+        trace(FlxG.width, FlxG.height);
     }
 
     override function create() {
@@ -42,8 +49,23 @@ class IntroStuff extends FlxState {
         cumCam.bgColor.alpha = 0;
 
         FlxG.cameras.reset(cumCam); // SO WE DON'T CRASH ON GAME LAUNCH!!
-
+        // trace(FileUtils.readXmlAnims('test'));
         background = new FlxSprite();
-        
+        //if (FileUtils.existential('picThing.png')) {
+            background.loadGraphic(FileUtils.pic('picThing'));
+            background.setGraphicSize(FlxG.width);
+            background.scrollFactor.set();
+            background.screenCenter();
+        /*} else {
+            background.makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(0, 255, 255, 128));
+        } */
+        yes = new Speen(FlxG.width - 48, FlxG.height - 48, false);
+        new FlxTimer().start(3, function (tmr:FlxTimer) {
+            yes.startSpinning();
+        });
+        var funnyMsg = new FlxText(0, FlxG.height - 30, FlxG.width - 48, 'Change the "picThing" file to change this image!', 24);
+        add(funnyMsg);
+        add(background);
+        add(yes);
     }
 }
