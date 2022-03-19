@@ -1,0 +1,50 @@
+{
+	"OffsetArray": [],
+	"ImagePath": "test",
+	"AnimArray": {
+		"prefixAnims": [
+			{
+				"animLoops": false,
+				"animFramerate": 24,
+				"animName": "lmao",
+				"animXmlName": "BF HEY"
+			}
+		],
+		"indicesAnims": [
+			{
+				"animFramerate": 24,
+				"animNamePost": "",
+				"animName": "damn",
+				"animXmlName": "BF SING LEFT0",
+				"animLoops": true,
+				"animIndices": [
+					13,
+					14,
+					15,
+					16
+				]
+			}
+		],
+		"allAnims": [
+			{
+				"animFramerate": 24,
+				"animNamePost": "",
+				"animName": "damn",
+				"animXmlName": "BF SING LEFT0",
+				"animLoops": true,
+				"animIndices": [
+					13,
+					14,
+					15,
+					16
+				]
+			},
+			{
+				"animLoops": false,
+				"animFramerate": 24,
+				"animName": "lmao",
+				"animXmlName": "BF HEY"
+			}
+		]
+	}
+}
