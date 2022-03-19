@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="Devin's Character Info Stuff" package="random.devin503.characters" version="0.0.2" company="devin503" />
+	<meta title="Material Gworl" package="random.devin503.characters" version="0.0.2" company="devin503" />
 	<app main="Main" path="Export" file="Ballnutter" />
 	
 	<source path="Source" />
@@ -29,5 +29,6 @@
 	<assets path="Assets/Audio" exclude="*.ogg" if="web" />
 	<assets path="Assets/Audio" exclude="*.mp3" unless="web" />
 	
-	<icon path="ARTSHIT/nice.png" />
+	<icon path="ARTSHIT/ballnutters.png" if="debug" />
+	<icon path="ARTSHIT/nice.png" unless="debug" />
 </project>
