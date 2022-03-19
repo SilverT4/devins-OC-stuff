@@ -192,7 +192,7 @@ class FileUtils {
     }
 
     public static function convertToFile(JsonData:Dynamic):String {
-        return Json.stringify(JsonData);
+        return Json.stringify(JsonData, "\t");
     }
     static var dataFileThing:String;
     static var charaFileThing:String;
