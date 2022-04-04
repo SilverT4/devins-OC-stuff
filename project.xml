@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="Material Gworl" package="random.devin503.characters" version="0.0.2" company="devin503" />
+	<meta title="My OC Thing in Haxe" package="random.devin503.characters" version="0.0.2" company="devin503" />
 	<app main="Main" path="Export" file="Ballnutter" />
 	
 	<source path="Source" />
@@ -13,8 +13,9 @@
 	<haxelib name="openfl" />
 	<!-- haxelib name="systools" /> -->
 	<haxelib name="random" />
+	<window width="1280" height="720" fps="" background="#696969" hardware="true" vsync="true" />
 
-	<haxedef name="WINDUSSY" if="debug windows" />
+	<!--<haxedef name="WINDUSSY" if="debug windows" />
 	<haxedef name="LINUSSY" if="debug linux" />
 	<haxedef name="MACUSSY" if="debug mac" />
 	<haxedef name="ANDRUSSY" if="debug android" />
@@ -25,10 +26,23 @@
 	<haxedef name="ANDROWOID" if="release android" />
 	<haxedef name="NOT_MY_FUCKIN_BROWSER" unless="web" />
 	
-	<assets path="Assets" />
 	<assets path="Assets/Audio" exclude="*.ogg" if="web" />
 	<assets path="Assets/Audio" exclude="*.mp3" unless="web" />
 	
 	<icon path="ARTSHIT/ballnutters.png" if="debug" />
-	<icon path="ARTSHIT/nice.png" unless="debug" />
+	-->
+	<icon path="ARTSHIT/nice.png" />
+	<assets path="Assets" />
+	<section if="debug">
+		<meta title="Material Gworl" />
+		<icon path="ARTSHIT/ballnutters.png" />
+	</section>
+	<section if="desktop">
+		<window orientation="landscape" fullscreen="false" resizable="true" />
+		<assets path="Assets/Audio" exclude="*.ogg" />
+	</section>
+	<section if="web">
+		<window resizable="false" />
+		<assets path="Assets/Audio" exclude="*.mp3" />
+	</section>
 </project>
