@@ -29,7 +29,20 @@ import lime.app.Application;
 import lime.system.Clipboard;
 import utils.FlxButtonCustom;
 using StringTools;
-
+/**
+    Hi there. So, if you're reading this, congrats. You've found something from before I decided to just... Rework the character sprite handling.
+    
+    That's right, I'm reworking the character sprite portion of this thing. The way it is (or *was*) right now is very much a fucking mess. I want to rework them to make it a bit more efficient if possible.
+    
+    If you want to see how this worked, go and clone this repository. The latest commit with this file was [commit 0eff98b](https://github.com/devin503/my-bussy-sharted/commit/0eff98bd916c043b9d5af13658c6850a5617c860), so just run `git checkout 0eff98b` after you clone and cd into the repo.
+    
+    Just know that it's a HUGE mess. It doesn't work the way I hoped it would, plus the code itself is just messy and I had a hard time figuring out what I was doing wrong whenever errors would come up.
+    
+    The way that things will work from this point on is very much what I hope will be better.
+    
+    Signed, devin503
+    
+    @since 3rd April 2022*/
 private typedef EditorAnim = {
     var animName:String;
     var animXmlName:String;
