@@ -1,0 +1,40 @@
+{
+	"name": "Whore",
+    "nickname": "CupcakKe",
+    "birthday": {
+		"day": 9,
+		"month": "June", // This can be either a string OR an int!
+		"year": 1969 // THIS FIELD IS OPTIONAL, YOU CAN LEAVE IT OUT AND JUST HAVE THE DAY/MONTH!!
+	},
+    "height": {
+		"ft": 6,
+		"inch": 9
+	},
+	"languageList": [
+		"English",
+		"Pissy",
+        "Sex"
+	],
+    "favourites": {
+		"MusicGenre": "Chillhop",
+		"Colours": [
+			"Yellow",
+			"Red"
+		],
+		"Aesthetic": "Grunge",
+		"VideoGames": [
+			"Among Us",
+			"Animal Crossing"
+		]
+	},
+    "headcanons": [
+		{
+			"headCanon": "Had sex with your mother",
+			"since": "69 hours ago"
+		},
+		{
+			"headCanon": "Always finds itself to be funny",
+			"since": "It existed"
+		}
+	]
+}
