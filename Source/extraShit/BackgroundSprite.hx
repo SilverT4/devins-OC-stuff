@@ -35,17 +35,22 @@ class BackgroundSprite extends FlxSprite{
     }
 
     public function loadImage(ImagePath:String) {
-        if (FileUtils.existential(ImagePath)) {
+        var realPath = ImagePath.split('/');
+        var imageName = realPath[realPath.length - 1];
+        var fuckyouPath = realPath.join('/').split(imageName).join('/');
+        if (FileUtils.existential(imageName, fuckyouPath)) {
             loadGraphic(ImagePath);
         } else {
-            loadGraphic(FileUtils.pic(ImagePath));
+            loadGraphic(FileUtils.pic(imageName));
         }
+        return this;
     }
 
     public function fitToScreen() {
         setGraphicSize(FlxG.width, FlxG.height);
         scrollFactor.set();
         updateHitbox();
+        return this;
     }
 
     public function switchImage(ImagePath:String) {
@@ -58,6 +63,6 @@ class BackgroundSprite extends FlxSprite{
         rand = new FlxRandom();
         var RandColor = rand.color(0xFF000000, 0xFFFFFFFF);
         trace(RandColor);
-        makeGraphic(16, 16, RandColor);
+        color = RandColor;
     }
 }
