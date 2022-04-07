@@ -13,8 +13,8 @@ import openfl.system.Capabilities;
 
 class Main extends Sprite
 {
-	var gameWidth:Int = Std.int(Capabilities.screenResolutionX / 2);
-	var gameHeight:Int = Std.int(Capabilities.screenResolutionY / 2);
+	var gameWidth:Int = 1280;
+	var gameHeight:Int = 720;
 	var framerate:Int = 90;
 	var skipSplash:Bool = true;
 	var zoom:Float = -1;
@@ -61,7 +61,9 @@ class Main extends Sprite
 					gameWidth = Math.ceil(stageWidth / zoom);
 					gameHeight = Math.ceil(stageHeight / zoom);
 				}
-			
+			#if debug
+			//initialState = TestingState;
+			#end
 			addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 	
 			fpsVar = new FPS(10, 3, 0xFFFFFF);
