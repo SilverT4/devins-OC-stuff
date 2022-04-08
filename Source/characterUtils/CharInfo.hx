@@ -27,7 +27,7 @@ typedef JsonFormat_CIHC = {
 
 class CharInfoJsonUtil {
     public static function pissMoon(FilePath:String) {
-        return haxe.Json.parse(sys.io.File.getContent(FilePath));
+        return haxe.Json.parse(#if sys sys.io.File.getContent #else openfl.Assets.getText #end(FilePath));
     }
 
     public static function moonPiss(FuckMe:JsonFormat_CIMain) {

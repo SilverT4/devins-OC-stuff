@@ -10,7 +10,7 @@ class CharacterPicture extends FlxSprite {
     public var funnyTrace:String = '';
     public function new(x:Float = 0, y:Float = 0, imagePath:String, ?URLPath:String, ?funnyTrace:String) {
         super(x, y);
-        loadGraphic((imagePath.contains('/')) ? imagePath : FileUtils.pic(imagePath));
+        loadGraphic((imagePath.contains('/')) ? imagePath : FileUtils.image(imagePath));
         if (URLPath != null) this.MyURL = URLPath;
         if (funnyTrace != null) this.funnyTrace = funnyTrace;
     }

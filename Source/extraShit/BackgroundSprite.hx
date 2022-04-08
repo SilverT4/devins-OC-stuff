@@ -38,10 +38,10 @@ class BackgroundSprite extends FlxSprite{
         var realPath = ImagePath.split('/');
         var imageName = realPath[realPath.length - 1];
         var fuckyouPath = realPath.join('/').split(imageName).join('/');
-        if (FileUtils.existential(imageName, fuckyouPath)) {
+        if (FileUtils.fileExists(imageName, fuckyouPath)) {
             loadGraphic(ImagePath);
         } else {
-            loadGraphic(FileUtils.pic(imageName));
+            loadGraphic(FileUtils.image(imageName));
         }
         return this;
     }
