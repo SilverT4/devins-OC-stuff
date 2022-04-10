@@ -1,5 +1,6 @@
 package;
 
+import haxe.extern.EitherType;
 import openfl.Assets;
 import openfl.utils.AssetType;
 import flixel.*;
@@ -110,6 +111,28 @@ class FileUtils {
                 var peter = DefaultImagePath + ImageName;
                 return ['$peter.png', '$peter.xml'];
             } else return ["Assets/Images/speen.png", "Assets/Images/speen.xml"];
+        }
+    }
+
+    public static function getTextContent(FilePath:String, ?Directory:String, AsArray:Bool = false, ArraySeparator:String = "\n"):EitherType<Array<String>, String> {
+        if (Directory != null) {
+            if (fileExists(FilePath, Directory)) {
+                if (AsArray) return Assets.getText(Directory + FilePath).split(ArraySeparator);
+                else return Assets.getText(Directory + FilePath);
+            } else {
+                trace("PLACEHOLDER GIVEN, COULDN'T FIND A FILE AT " + Directory + FilePath);
+                if (AsArray) return ["THIS IS A PLACEHOLDER THING!!", "CHECK YOUR SOURCE."];
+                else return "CHECK YOUR SOURCE. THIS IS A PLACEHOLDER.";
+            }
+        } else {
+            if (fileExists(FilePath, DefaultTextPath)) {
+                if (AsArray) return Assets.getText(DefaultTextPath + FilePath).split(ArraySeparator);
+                else return Assets.getText(DefaultTextPath + FilePath);
+            } else {
+                trace("PLACEHOLDER GIVEN, COULDN'T FIND A FILE NAMED " + FilePath);
+                if (AsArray) return ["THIS IS A PLACEHOLDER THING!!", "CHECK YOUR SOURCE."];
+                else return "CHECK YOUR SOURCE. THIS IS A PLACEHOLDER.";
+            }
         }
     }
 

@@ -57,6 +57,7 @@ class CharInfo {
         this.languageList = languageList;
         this.favourites = favs;
         this.headcanons = hcs;
+        doAgeCalc(this.birthday);
         INFO_SHIT = ["Name: " + this.name,
                     "Nickname: " + ((this.nickname != null) ? this.nickname : "N/A"),
                     "Birthday\n=============\nMonth: " + this.birthday.month + "\nDate: " + this.birthday.day + "\nYear (-1 means N/A): " + ((this.birthday.year != null) ? this.birthday.year : -1) + "\n=============",
@@ -66,36 +67,39 @@ class CharInfo {
             INFO_SHIT.push("Age:" + this.age);
         }
         #if debug trace(INFO_SHIT.join('\n')); #end
-        doAgeCalc(this.birthday);
     }
 
     function doAgeCalc(sus:Birthday) {
-        var amogus:Date = Date.now();
-        var piss = Std.string(amogus).split(' ');
-        var shake = piss[0].split('-');
-        var hhhh = Std.parseInt(shake[0]) - sus.year;
-        if (Std.parseInt(shake[1]) <= getFUCK(sus.month)) {
-            trace("IS THE MONTH CURRENT???");
-            if (Std.parseInt(shake[1]) == getFUCK(sus.month)) {
-                trace("YES. NOW IS THE DAY PAST OR FUTURE?");
-                if (Std.parseInt(shake[2]) < sus.day) {
-                    trace("PAST.");
-                    this.age = hhhh;
-                } else if (Std.parseInt(shake[2]) == sus.day) {
-                    trace("OH SHIT, IT'S TODAY. HAPPY BIRTHDAY TO " + this.name.toUpperCase() + "!!");
-                    this.age = hhhh;
+        if (sus.year != null) {
+            var amogus:Date = Date.now();
+            var piss = Std.string(amogus).split(' ');
+            var shake = piss[0].split('-');
+            var hhhh = Std.parseInt(shake[0]) - sus.year;
+            if (Std.parseInt(shake[1]) <= getFUCK(sus.month)) {
+                trace("IS THE MONTH CURRENT???");
+                if (Std.parseInt(shake[1]) == getFUCK(sus.month)) {
+                    trace("YES. NOW IS THE DAY PAST OR FUTURE?");
+                    if (Std.parseInt(shake[2]) < sus.day) {
+                        trace("PAST.");
+                        this.age = hhhh;
+                    } else if (Std.parseInt(shake[2]) == sus.day) {
+                        trace("OH SHIT, IT'S TODAY. HAPPY BIRTHDAY TO " + this.name.toUpperCase() + "!!");
+                        this.age = hhhh;
+                    } else {
+                        trace("FUTURE.");
+                        this.age = hhhh - 1;
+                    }
                 } else {
-                    trace("FUTURE.");
-                    this.age = hhhh - 1;
+                    trace("NOPE. IT'S PAST, IT SEEMS.");
+                    this.age = hhhh;
                 }
             } else {
-                trace("NOPE. IT'S PAST, IT SEEMS.");
-                this.age = hhhh;
+                this.age = hhhh - 1;
             }
+            trace(amogus + "\n" + sus + "\n" + shake);
         } else {
-            this.age = hhhh - 1;
+            this.age = "Ageless/Unknown";
         }
-        trace(amogus + "\n" + sus + "\n" + shake);
     }
 
     function getFUCK(MONTH:Dynamic) {
