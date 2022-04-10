@@ -13,7 +13,7 @@ import openfl.system.Capabilities;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUI;
 import FileUtils;
-import characterUtils.CharacterThings;
+//import characterUtils.CharacterThings;
 import extraShit.Speen;
 import flixel.util.FlxTimer;
 using StringTools;
@@ -21,7 +21,7 @@ using StringTools;
 /**The main intro screen. This includes a basic explanation of what the user can expect to see.
     @since 0.0.1*/
 class IntroStuff extends FlxState {
-    public static var currentVersion:String = '0.0.1';
+    public static var currentVersion:String = '0.0.3';
     #if (desktop || mobile)
     public static final yourPlatform:String = 'PC or Mobile';
     #else
@@ -35,10 +35,10 @@ class IntroStuff extends FlxState {
     var background:FlxSprite;
     var cumCam:FlxCamera;
     var yes:Speen;
-    public static var joeMama:Character;
+    //public static var joeMama:Character;
     public static var cumChat:String = 'cum';
     public static var PUBLIC_VARS:Array<Dynamic> = [
-        joeMama,
+        //joeMama,
         cumChat
     ];
     
@@ -58,7 +58,7 @@ class IntroStuff extends FlxState {
         // trace(FileUtils.readXmlAnims('test'));
         background = new FlxSprite();
         //if (FileUtils.existential('picThing.png')) {
-            background.loadGraphic(FileUtils.pic('picThing'));
+            background.loadGraphic(FileUtils.image('picThing'));
             background.setGraphicSize(FlxG.width);
             background.scrollFactor.set();
             background.screenCenter();
