@@ -94,18 +94,45 @@ class InfoState extends FlxState {
         infoUI.resize(500, 550);
         infoUI.setPosition(FlxG.width - 575, 25);
         add(infoUI);
+        addMainUi();
         // i need to set up the UI elements and functions. lmao
     }
 
     var charName:FlxText;
     var charNick:FlxText;
     #if debug
+    var GEAR:CharacterPicture; // THE SAME SCALING I USE IN TESTING FOR BLITZ SHOULD WORK FOR GEAR, I BELIEVE!!
+    #else
+    var charPic:CharacterPicture;
+    #end
+    var charAge:String = '';
+    function addMainUi() {
+        mainBox = new FlxUI(null, infoUI);
+        mainBox.name = "Main";
+        if (#if debug pissyThing #else theChar #end.birthday.year != null) {
+            //
+        }
+        charName = new FlxText(15, 10, 0, #if debug pissyThing.name #else theChar.name #end, 14);
+        charName.setFormat(FileUtils.getFont("trebuc.ttf"), 14, FlxColor.BLACK, LEFT);
+        #if debug
+        GEAR = new CharacterPicture(15, charName.y + 20, FileUtils.image("CharPics/gear.png", null, true), "https://wattpad.com/stories/jiafei", "yes i put a wattpad thing");
+        GEAR.scale.set(0.35, 0.35);
+        GEAR.updateHitbox();
+        mainBox.add(GEAR);
+        #else
+        //WIP!!
+        #end
+
+        mainBox.add(charName);
+        infoUI.addGroup(mainBox);
+    }
+    #if debug
     var testPicture:CharacterPicture;
     function doPictureShit() {
         testPicture = new CharacterPicture(0, 0, FileUtils.image("cyan-robo", null, false), "https://google.com", "this literally just goes to google. lmao");
         add(testPicture);
         ogWidth = testPicture.width;
-        picInfo = new FlxText(0, 0, 0, "", 12);
+        picInfo = new FlxText(0, 50, 0, "", 12);
         picInfo.setFormat("_sans", 12, FlxColor.WHITE, LEFT);
         add(picInfo);
     }
@@ -133,6 +160,12 @@ class InfoState extends FlxState {
         super.update(elapsed);
 
         #if debug
+        if (GEAR != null) {
+            if (FlxG.mouse.overlaps(GEAR) && FlxG.mouse.justPressed) {
+                GEAR.openMyURL();
+            }
+            GEAR.update(elapsed);
+        }
         if (FlxG.keys.justPressed.B) addButton();
         susX = FlxG.mouse.x;
         susY = FlxG.mouse.y;
