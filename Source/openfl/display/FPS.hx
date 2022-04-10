@@ -46,7 +46,7 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat(FileUtils.getFont("HPSimplified_Rg.ttf"), 11, color);
+		defaultTextFormat = new TextFormat(FileUtils.getFont("HPSimplified_Rg.ttf", true), 11, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
@@ -84,7 +84,7 @@ class FPS extends TextField
 		{
 			text = "FPS: " + currentFPS;
 			var memoryMegas:Float = 0;
-			
+			#if sys
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			text += "\nMemory: " + memoryMegas + " MB";
@@ -96,7 +96,7 @@ class FPS extends TextField
 				textColor = 0xFFFF0000;
 				text += "\nVERY SUS!!";
 			}
-
+			#end
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
 			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
 			text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
