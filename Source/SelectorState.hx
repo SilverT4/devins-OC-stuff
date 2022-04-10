@@ -15,6 +15,18 @@ using StringTools;
 /**I don't know what I'm really *doing* with this state, tbh. You can check out its history to see different ideas I've tried for it. lmfao
     @since 0.0.3 (early April 2022)*/
 class SelectorState extends FlxState {
+
+    function getToppings() {
+        var shel = FlxG.width;
+        var cheese:FlxSprite = new FlxSprite(0).makeGraphic(shel, 100, 0xFF000000);
+        meat.add(cheese);
+        var sourCvm:FlxSprite = new FlxSprite(0, FlxG.height - 100).makeGraphic(shel, 100, 0xFF000000);
+        meat.add(sourCvm);
+        var watermelon:FlxSprite = new FlxSprite(0).makeGraphic(250, FlxG.height, 0xFF000000);
+        meat.add(watermelon);
+        var penisJuice:FlxSprite = new FlxSprite(FlxG.width - 250).makeGraphic(250, FlxG.height, 0xFF000000);
+        meat.add(penisJuice);
+    }
     /**Buy sexy jiafei product to cure your mother's cvm obsession 🥰🥰🥰
     
     ***
@@ -58,12 +70,7 @@ class SelectorState extends FlxState {
         FlxTween.tween(pissyDisplay, startinProps, 0.5, dumb);
         meat = new FlxTypedGroup();
         add(meat);
-        for (i in 0...10) {
-            trace("item " + i);
-                var topping:FlxSprite = new FlxSprite(0, (50 * i));
-                topping.makeGraphic(FlxG.width, 100, 0xFF000000);
-                meat.add(topping);
-        }
+        getToppings();
     }
 
     override function update(elapsed:Float) {
