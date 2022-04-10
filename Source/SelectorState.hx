@@ -26,6 +26,12 @@ class SelectorState extends FlxState {
         meat.add(watermelon);
         var penisJuice:FlxSprite = new FlxSprite(FlxG.width - 250).makeGraphic(250, FlxG.height, 0xFF000000);
         meat.add(penisJuice);
+        iLoveLean = new FlxText(watermelon.getGraphicMidpoint().x, watermelon.getGraphicMidpoint().y, 0, "<--", 24);
+        iLoveLean.setFormat("Trebuchet MS", 24, FlxColor.WHITE, CENTER);
+        add(iLoveLean);
+        skeet = new FlxText(penisJuice.getGraphicMidpoint().x, watermelon.getGraphicMidpoint().y, 0, "-->", 24);
+        skeet.setFormat("Trebuchet MS", 24, FlxColor.WHITE, CENTER);
+        add(skeet);
     }
     /**Buy sexy jiafei product to cure your mother's cvm obsession 🥰🥰🥰
     
@@ -104,6 +110,16 @@ class SelectorState extends FlxState {
     function changeSelection(change:Int = 0) {
         FlxG.sound.play(FileUtils.sound("xpNavigate.ogg", null, true));
         curSelecc += change;
+        if (change == -1) {
+            if (iLoveLean != null) {
+                FlxTween.color(iLoveLean, 0.2, 0xFF00FFFF, 0xFFFFFFFF);
+            }
+        }
+        if (change == 1) {
+            if (skeet != null) {
+                FlxTween.color(skeet, 0.2, 0xFF00FFFF, 0xFFFFFFFF);
+            }
+        }
         if (curSelecc < 0) {
             curSelecc = charList.length - 1;
         }
