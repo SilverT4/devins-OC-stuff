@@ -4,8 +4,12 @@ import dumb.Section.SusSection;
 import haxe.Json;
 import haxe.format.JsonParser;
 import lime.utils.Assets;
+#if sys
 import sys.io.File;
 import sys.FileSystem;
+#else
+import openfl.Assets as OpenAssets;
+#end
 using StringTools;
 
 /**THIS IS A DIRECT COPY FROM FNF PSYCH ENGINE. I AM LAZY RN
@@ -96,7 +100,7 @@ class Song
 		var formattedSong:String = jsonInput.toLowerCase().replace(' ', '-') + '.json';
 
 		if(rawJson == null) {
-			rawJson = File.getContent(formattedFolder + formattedSong).trim();
+			rawJson = #if sys File.getContent #else OpenAssets.getText #end(formattedFolder + formattedSong).trim();
 		}
 
 		while (!rawJson.endsWith("}"))
