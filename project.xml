@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="My OC Thing in Haxe" package="random.devin503.characters" version="0.0.2" company="devin503" />
-	<app main="Main" path="Export" file="Ballnutter" />
+	<meta title="My OC Thing in Haxe" package="random.devin503.characters" version="0.0.3" company="devin503" />
+	<app main="Main" path="Export" file="OC Thing idk" />
 	
 	<source path="Source" />
 	
@@ -32,17 +32,25 @@
 	<icon path="ARTSHIT/ballnutters.png" if="debug" />
 	-->
 	<icon path="ARTSHIT/nice.png" />
+	<section id="cursor">
+		<assets path="Assets/Cursor.png" embed='true' />
+		<assets path="Assets/Cursor.xml" embed='true' />
+	</section>
 	<assets path="Assets" />
+	<assets path="Assets/Audio" exclude="*.ogg" if="web" />
+	<assets path="Assets/Audio" exclude="*.mp3" unless="web" />
+	<assets path="Assets/Fonts" embed="true" />
 	<section if="debug">
 		<meta title="Material Gworl" />
 		<icon path="ARTSHIT/ballnutters.png" />
+		<app path="Pissbug/Export" file="Ballnutter" />
 	</section>
 	<section if="desktop">
 		<window orientation="landscape" fullscreen="false" resizable="true" />
-		<assets path="Assets/Audio" exclude="*.ogg" />
+		<!-- im confused rn -->
 	</section>
 	<section if="web">
-		<window resizable="false" />
-		<assets path="Assets/Audio" exclude="*.mp3" />
+		<window resizable="true" />
+		<!-- i hate this shit -->
 	</section>
 </project>
