@@ -62,6 +62,7 @@ class SelectorState extends FlxState {
         charList = ["Sus", "Gear (Won't Crash)"];
         #end
     }
+    var menuShit:Array<String> = ["Default", "Alphabetical", "By species"];
     var pissyDisplay:FlxText;
     var iLoveLean:FlxText;
     var skeet:FlxText;
@@ -135,7 +136,17 @@ class SelectorState extends FlxState {
         #end
         super.update(elapsed);
     }
-
+    var curMenu:Int = 0;
+    function switchMenus(change:Int = 0) {
+        curMenu += change;
+        if (curMenu >= menuShit.length) {
+            curMenu = 0;
+        }
+        if (curMenu < 0) {
+            curMenu = menuShit.length - 1;
+        }
+        //i need to set up the tweens for menu changes!
+    }
     function doFunny() {
         #if debug
         if (charList[curSelecc] == "Sus") {
