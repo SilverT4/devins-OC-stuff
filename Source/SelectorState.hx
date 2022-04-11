@@ -1,5 +1,9 @@
 package;
 
+import flixel.text.FlxText.FlxTextFormat;
+#if mobile
+import flixel.input.touch.*;
+#end
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.*;
 import flixel.text.*;
@@ -28,10 +32,16 @@ class SelectorState extends FlxState {
         meat.add(penisJuice);
         iLoveLean = new FlxText(watermelon.getGraphicMidpoint().x, watermelon.getGraphicMidpoint().y, 0, "<--", 24);
         iLoveLean.setFormat("Trebuchet MS", 24, FlxColor.WHITE, CENTER);
-        add(iLoveLean);
         skeet = new FlxText(penisJuice.getGraphicMidpoint().x, watermelon.getGraphicMidpoint().y, 0, "-->", 24);
         skeet.setFormat("Trebuchet MS", 24, FlxColor.WHITE, CENTER);
+        #if mobile
+        add(touchable);
+        touchable.add(iLoveLean);
+        touchable.add(skeet);
+        #else
+        add(iLoveLean);
         add(skeet);
+        #end
     }
     /**Buy sexy jiafei product to cure your mother's cvm obsession 🥰🥰🥰
     
@@ -55,20 +65,28 @@ class SelectorState extends FlxState {
     var pissyDisplay:FlxText;
     var iLoveLean:FlxText;
     var skeet:FlxText;
+    var down:FlxText;
+    var upscroll:FlxText; // for scrolling up/down in the future.
     var debugBg:BackgroundSprite;
     var meat:FlxTypedGroup<FlxSprite>; // gonna make a "cover" thing with flxsprites idk
     override function create() {
+        lean = FlxG.random.int(0, 10);
         debugBg = new BackgroundSprite();
         debugBg.loadImage(FileUtils.image("centras_nh", null, false));
         debugBg.fitToScreen();
         debugBg.updateHitbox();
-        debugBg.setRandomBackground();
+        if (lean == 5) debugBg.color = FlxColor.PURPLE else debugBg.setRandomBackground();
         add(debugBg);
         startinProps = { alpha: 1, y: (FlxG.height / 2) };
         pissyDisplay = new FlxText(FlxG.width / 2, -2000, 0, charList[0], 16);
+        pissyDisplay.setFormat(FileUtils.getFont("HYYoyo_Regular.ttf", true), 16, FlxColor.WHITE, CENTER);
         //pissyDisplay.screenCenter();
         add(pissyDisplay);
         super.create();
+        #if mobile
+        touchable = new FlxTypedGroup();
+        //add(touchable);
+        #end
         yassified = { onComplete: outer };
         dumb = { onComplete: pegMyBussy };
         jesus = debugBg.getGraphicMidpoint().x;
@@ -78,8 +96,12 @@ class SelectorState extends FlxState {
         add(meat);
         getToppings();
     }
-
+    #if mobile
+    var noob:FlxTouch;
+    var touchable:FlxTypedGroup<Dynamic>;
+    #end
     override function update(elapsed:Float) {
+        #if (desktop || web)
         if (FlxG.keys.justPressed.LEFT) {
             changeSelection(-1);
         }
@@ -89,6 +111,28 @@ class SelectorState extends FlxState {
         if (FlxG.keys.justPressed.ENTER) {
             doFunny();
         }
+        if (FlxG.keys.justPressed.DOWN) {
+            trace("NOT FINISHED WITH THIS.");
+        }
+        if (FlxG.keys.justPressed.UP) {
+            trace("NOT FINISHED WITH THIS.");
+        }
+        #elseif mobile
+        if (FlxG.touches.getFirst() != null) {
+            noob = FlxG.touches.getFirst();
+            if (touchable != null) {
+                for (item in touchable) {
+                    if (noob.overlaps(item) && noob.justPressed) {
+                        if (item == iLoveLean) changeSelection(-1);
+                        else if (item == skeet) changeSelection(1);
+                    }
+                }
+            }
+        }
+        /*if (debugBg != null) {
+            trace("pee"); // i need to figure out how these work!!
+        }*/
+        #end
         super.update(elapsed);
     }
 
@@ -106,18 +150,30 @@ class SelectorState extends FlxState {
         #end
     }
     var jesus:Float = 0;
+    var lean:Int = 0;
     var curSelecc:Int = 0;
+    var funnyProp = { x: 1, y: 1 };
     function changeSelection(change:Int = 0) {
         FlxG.sound.play(FileUtils.sound("xpNavigate.ogg", null, true));
         curSelecc += change;
         if (change == -1) {
             if (iLoveLean != null) {
-                FlxTween.color(iLoveLean, 0.2, 0xFF00FFFF, 0xFFFFFFFF);
+                iLoveLean.scale.set(2, 2);
+                //iLoveLean.updateHitbox();
+                FlxTween.tween(iLoveLean.scale, funnyProp, 0.5, { onComplete: function(pee:FlxTween) {
+                    iLoveLean.updateHitbox();
+                }});
+                FlxTween.color(iLoveLean, 0.5, 0xFF00FFFF, 0xFFFFFFFF);
             }
         }
         if (change == 1) {
             if (skeet != null) {
-                FlxTween.color(skeet, 0.2, 0xFF00FFFF, 0xFFFFFFFF);
+                skeet.scale.set(2, 2);
+                //skeet.updateHitbox();
+                FlxTween.tween(skeet.scale, funnyProp, 0.5, { onComplete: function(pee:FlxTween) {
+                    skeet.updateHitbox();
+                }});
+                FlxTween.color(skeet, 0.5, 0xFF00FFFF, 0xFFFFFFFF);
             }
         }
         if (curSelecc < 0) {
