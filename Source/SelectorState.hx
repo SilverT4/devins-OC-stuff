@@ -19,7 +19,7 @@ using StringTools;
 /**I don't know what I'm really *doing* with this state, tbh. You can check out its history to see different ideas I've tried for it. lmfao
     @since 0.0.3 (early April 2022)*/
 class SelectorState extends FlxState {
-
+    /**This function controls the outer black boxes of the selector UI. It's added AFTER the character name is generated on screen, therefore the name goes behind them during transitions.*/
     function getToppings() {
         var shel = FlxG.width;
         var cheese:FlxSprite = new FlxSprite(0).makeGraphic(shel, 100, 0xFF000000);
@@ -50,6 +50,9 @@ class SelectorState extends FlxState {
     In all seriousness, this variable will be the *name* of the character you select in this state.*/
     var jiafei:String = "product";
     var charList:Array<String> = [];
+    var curList:Array<String> = [];
+    var ALPH:Array<String> = [#if !mobile "Press ENTER to sort alphabetically." #else "Tap the OK button to sort alphabetically." #end];
+    var SPEC:Array<String> = [#if !mobile "Press ENTER to sort by species." #else "Tap the OK button to sort by species." #end];
     public function new() {
         super();
         #if !debug
@@ -84,6 +87,10 @@ class SelectorState extends FlxState {
         //pissyDisplay.screenCenter();
         add(pissyDisplay);
         super.create();
+        #if debug
+        charList.sort(alphabetSoup);
+        trace(charList);
+        #end
         #if mobile
         touchable = new FlxTypedGroup();
         //add(touchable);
@@ -146,6 +153,19 @@ class SelectorState extends FlxState {
             curMenu = menuShit.length - 1;
         }
         //i need to set up the tweens for menu changes!
+    }
+
+    function alphabetSoup(ass:String, hole:String):Int {
+        ass = ass.toUpperCase();
+        hole = hole.toUpperCase();
+
+        if (ass < hole) {
+            return -1;
+        } else if (ass > hole) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
     function doFunny() {
         #if debug
