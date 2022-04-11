@@ -79,7 +79,7 @@ class SelectorState extends FlxState {
         add(debugBg);
         startinProps = { alpha: 1, y: (FlxG.height / 2) };
         pissyDisplay = new FlxText(FlxG.width / 2, -2000, 0, charList[0], 16);
-        pissyDisplay.setFormat(FileUtils.getFont("HYYoyo_Regular.ttf", true), 16, FlxColor.WHITE, CENTER);
+        pissyDisplay.setFormat(FileUtils.getFont("HYYoyo_Regular.ttf", true), 20, FlxColor.WHITE, CENTER);
         //pissyDisplay.screenCenter();
         add(pissyDisplay);
         super.create();
