@@ -44,6 +44,8 @@ class FileUtils {
                 return DefaultCharacterPath + FileName;
             case #if !web 'ogg' #else 'mp3' #end:
                 return DefaultAudioPath + FileName;
+            case 'species': // Fun fact that I discovered while editing the "Unknown species" file: Starbound also uses the .species extension. The species files in this repo won't work for the game though. ^_^''
+                return "Assets/Species/Unknown/" + FileName;
             default:
                 throw new Exception("Unable to figure out the asset type for " + FileName + ".");
         }
