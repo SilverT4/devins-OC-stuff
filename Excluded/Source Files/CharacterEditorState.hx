@@ -21,7 +21,7 @@ import flixel.addons.ui.FlxUI;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import extraShit.Speen;
-import characterUtils.CharacterThings;
+//import characterUtils.CharacterThings;
 import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
