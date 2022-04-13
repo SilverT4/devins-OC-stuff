@@ -22,7 +22,7 @@ class FileUtils {
     public static function fileExists(FilePath:String, ?Directory:String) {
         if (Directory != null) {
             if (Assets.exists(Directory + FilePath)) return true;
-            else if (Assets.exists(fuckinDefaultShit(FilePath))) return true;
+            //else if (Assets.exists(fuckinDefaultShit(FilePath))) return true;
             else return false;
         } else {
             if (Assets.exists(fuckinDefaultShit(FilePath))) return true;
@@ -46,6 +46,8 @@ class FileUtils {
                 return DefaultAudioPath + FileName;
             case 'species': // Fun fact that I discovered while editing the "Unknown species" file: Starbound also uses the .species extension. The species files in this repo won't work for the game though. ^_^''
                 return "Assets/Species/Unknown/" + FileName;
+            case 'subspecies':
+                return "Assets/Species/Unknown/unknown.subspecies";
             default:
                 throw new Exception("Unable to figure out the asset type for " + FileName + ".");
         }
