@@ -1,7 +1,9 @@
 package;
 
+import utils.FlxUIDropDownMenuCustom;
+import characterUtils.SpeciesThingie;
 import characterUtils.CharInfo;
-import characterUtils.*;
+import characterUtils.CharacterPicture;
 import characterUtils.CharInfo.FavouriteStuff;
 import characterUtils.CharInfo.Headcanon;
 import characterUtils.CharInfo.CharInfoJsonUtil;
@@ -29,8 +31,10 @@ class InfoState extends FlxState {
         pissButton.cameras = [poopyCam];
         add(pissButton);
     }
-    
+    var testerInt:Int = 0;
     var pissyThing:CharInfo;
+    var pissSpecies:Species;
+    var pissSubSpecies:Subspecies;
     var pissday:Birthday = {
         month: "May",
         day: 4,
@@ -48,16 +52,21 @@ class InfoState extends FlxState {
     var mainBox:FlxUI; // the main box. contains name, nickname, etc.
     var hcBox:FlxUI; // the headcanon box. self-explanatory.
     var fsBox:FlxUI; // the favourites box.
+    var specBox:FlxUI; // the species info box.
     var tabussy = [
         { name: "Main", label: "About this OC" },
         { name: "HC", label: "Headcanons" },
-        { name: "Fav", label: "Favourites" }
-    ]; // tablist bc yes
+        { name: "Fav", label: "Favourites" },
+        { name: "Species", label: "Species Info" }
+    ]; // tablist bc yes || not quite ready to add species thing yet.
     public function new(#if !debug characterInfo:EitherType<CharInfo, JsonFormat_CIMain> #end) { // I'M GONNA BE USING A CHARACTER IN DEBUG BUILDS TO TEST!!
         super();
         #if debug
-        pissyThing = new CharInfo("Gear", null, pissday, pissheight, languages, new FavouriteStuff("Unsure", ["Blue", "Green"], ["Mostly puzzle games on the DS"], "Unsure"), [
-            new Headcanon("Very much prefers tea over coffee.", "I came up with the character?")
+        pissSpecies = new Species("Robot", "The definition of robot varies, but to me it's pretty much just... Anything mechanic in nature, whether sentient or not.", "Unknown"); // that's my definition - devin503
+        pissSubSpecies = new Subspecies("Were-con", "A subspecies of Mini-con that can be more aggressive in nature. They're basically werewolf Mini-cons, hence the name.", "Mini-con", false, "devin503");
+        testerInt = FlxG.random.int(0, 1);
+        pissyThing = new CharInfo("Gear", null, ((testerInt == 0) ? pissSpecies : pissSubSpecies), pissday, pissheight, languages, new FavouriteStuff("Unsure", ["Blue", "Green"], ["Mostly puzzle games on the DS"], "Unsure"), [
+            new Headcanon("Very much prefers tea over coffee.", "I came up with the character?", null, "ass")
         ]);
         #else
         if (characterInfo is CharInfo) {
@@ -95,24 +104,46 @@ class InfoState extends FlxState {
         infoUI.setPosition(FlxG.width - 575, 25);
         add(infoUI);
         addMainUi();
+        headass();
         // i need to set up the UI elements and functions. lmao
     }
 
     var charName:FlxText;
-    var charNick:FlxText;
+    // var charNick:FlxText; I'm making charName include the age and nickname as well!!
+    var charSpecQuick:FlxText;
     #if debug
     var GEAR:CharacterPicture; // THE SAME SCALING I USE IN TESTING FOR BLITZ SHOULD WORK FOR GEAR, I BELIEVE!!
     #else
     var charPic:CharacterPicture;
     #end
     var charAge:String = '';
+    var nameString:String = "";
+    var _stDates:Array<Int> = [
+        1,
+        21,
+        31
+    ];
+    var _ndDates:Array<Int> = [
+        2,
+        22
+    ];
     function addMainUi() {
         mainBox = new FlxUI(null, infoUI);
         mainBox.name = "Main";
-        if (#if debug pissyThing #else theChar #end.birthday.year != null) {
-            //
+        var forLessCondits:CharInfo = #if debug pissyThing #else theChar #end;
+        var bdayShit = (_stDates.contains(forLessCondits.birthday.day)) ? forLessCondits.birthday.day + "st" : (_ndDates.contains(forLessCondits.birthday.day)) ? forLessCondits.birthday.day + "nd" : forLessCondits.birthday.day + "th";
+        var monthFormatted = CharInfo.getSHIT(forLessCondits.birthday.month);
+        var formattedbirthday = (forLessCondits.birthday.year != null) ? bdayShit + " " + monthFormatted + ", " + forLessCondits.birthday.year : bdayShit + " " + monthFormatted;
+        nameString = forLessCondits.name + " | " + ((forLessCondits.nickname != null) ? forLessCondits.nickname : "No nickname");
+        if (forLessCondits.age != null) {
+            if (forLessCondits.age is Int) {
+                charAge = forLessCondits.age + " years old";
+            } else {
+                charAge = forLessCondits.age;
+            }
+            nameString += " | " + charAge;
         }
-        charName = new FlxText(15, 10, 0, #if debug pissyThing.name #else theChar.name #end, 14);
+        charName = new FlxText(15, 10, 0, nameString, 14);
         charName.setFormat(FileUtils.getFont("trebuc.ttf"), 14, FlxColor.BLACK, LEFT);
         #if debug
         GEAR = new CharacterPicture(15, charName.y + 20, FileUtils.image("CharPics/gear.png", null, true), "https://wattpad.com/stories/jiafei", "yes i put a wattpad thing");
@@ -122,9 +153,28 @@ class InfoState extends FlxState {
         #else
         //WIP!!
         #end
+        var thePic = #if debug GEAR #else charPic #end;
+        var speciesQuick = forLessCondits.species.name;
+        charSpecQuick = new FlxText(15, thePic.height + 30, 0, speciesQuick, 14);
+        charSpecQuick.setFormat(FileUtils.getFont("trebuc.ttf"), 14, FlxColor.BLACK, LEFT);
+        mainBox.add(charSpecQuick);
 
         mainBox.add(charName);
         infoUI.addGroup(mainBox);
+    }
+    var pissDroplet:FlxUIDropDownMenuCustom;
+    function headass() {
+        hcBox = new FlxUI(null, infoUI);
+        hcBox.name = "HC";
+
+        pissDroplet = new FlxUIDropDownMenuCustom(15, 30, FlxUIDropDownMenuCustom.makeStrIdLabelArray(['your mom', 'bussy'], true), fuckYou);
+
+        hcBox.add(pissDroplet);
+        infoUI.addGroup(hcBox);
+    }
+
+    function fuckYou(asshead:String) {
+        pissDroplet.selectedLabel = "your mom";
     }
     #if debug
     var testPicture:CharacterPicture;
@@ -161,10 +211,13 @@ class InfoState extends FlxState {
 
         #if debug
         if (GEAR != null) {
-            if (FlxG.mouse.overlaps(GEAR) && FlxG.mouse.justPressed) {
+            if (GEAR.visible && FlxG.mouse.overlaps(GEAR) && FlxG.mouse.justPressed) {
                 GEAR.openMyURL();
             }
             GEAR.update(elapsed);
+        }
+        if (FlxG.keys.justPressed.SPACE && pissyThing != null) {
+            openSubState(new HeadcanonPictureSubstate(pissyThing.headcanons[0]));
         }
         if (FlxG.keys.justPressed.B) addButton();
         susX = FlxG.mouse.x;
