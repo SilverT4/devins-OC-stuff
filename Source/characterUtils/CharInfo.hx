@@ -155,13 +155,18 @@ class CharInfo {
 class Headcanon {
     public var headCanon:String;
     public var since:String;
+    public var expandedInfo:String;
     public var imageName:String;
     private var INFO_SHIT:Array<String> = [];
-    public function new(hc:String, since:String, ?picName:String) {
+    public function new(hc:String, since:String, ?moreInfo:String, ?picName:String) {
         this.headCanon = hc;
         this.since = since;
         INFO_SHIT = ["Headcanon: " + this.headCanon,
                     "Since: " + this.since];
+        if (moreInfo != null) {
+            this.expandedInfo = moreInfo;
+            INFO_SHIT.push("More info: " + this.expandedInfo);
+        }
         if (picName != null) {
             this.imageName = picName;
             INFO_SHIT.push("Image file:" + this.imageName);
