@@ -66,7 +66,7 @@ class TestingState extends FlxState {
     override function create() {
         theBack = new BackgroundSprite();
         theBack.loadImage(FileUtils.image("winDesat", null, false));
-        theBack.setRandomBackground();
+        theBack.color = -11496759;
         theBack.fitToScreen();
         add(theBack);
         mouseCam = new FlxCamera();
@@ -81,6 +81,8 @@ class TestingState extends FlxState {
         infoBox.setPosition(FlxG.width - 525, 15);
         infoBox.selected_tab_id = "Main";
         add(infoBox);
+        mainUIShit();
+        headass();
     }
 
     function mainUIShit() {
@@ -96,7 +98,68 @@ class TestingState extends FlxState {
         mainShit.add(nameText);
         infoBox.addGroup(mainShit);
     }
+    var hcNameList:Array<String> = [];
+    var hcDropper:FlxUIDropDownMenuCustom;
+    var hcSince:FlxText;
+    var hcExpand:FlxText;
+    function headass() {
+        hcShit = new FlxUI(null, infoBox);
+        hcShit.name = "HC";
 
+        hcNameList = getHeadcanonList();
+
+        hcDropper = new FlxUIDropDownMenuCustom(15, 30, FlxUIDropDownMenuCustom.makeStrIdLabelArray(hcNameList, true), doHeadBullshit);
+        hcDropper.width += 50;
+        hcDropper.selectedLabel = hcNameList[0];
+        hcSince = new FlxText(15, hcDropper.y + 30, 0, "PICK SOMETHIN!", 14);
+        hcSince.setFormat(FileUtils.getFont("HYYoyo_Regular.ttf"), 14, FlxColor.BLACK);
+        hcShit.add(hcSince);
+        hcShit.add(hcDropper);
+        infoBox.addGroup(hcShit);
+    }
+
+    function doHeadBullshit(hc:String) {
+        var that:Headcanon = testCharacter.headcanons[Std.parseInt(hc)];
+        hcDropper.selectedLabel = hcNameList[Std.parseInt(hc)];
+        hcSince.text = that.since;
+        hcSince.fieldWidth = 0;
+        if (that.expandedInfo != null) {
+            hcExpand.text = formatAttempt(that.expandedInfo);
+            hcExpand.fieldWidth = 0;
+        } else {
+            hcExpand.text = "No extra info";
+            hcExpand.fieldWidth = 0;
+        }
+    }
+
+    function formatAttempt(hcInfo:String) {
+        var eee = hcInfo.split(' '); // split by spaces idk
+        var returnMe:String = "";
+        trace(eee);
+        for (word in eee) {
+            if (eee.indexOf(word) % 5 == 5) {
+                returnMe += word + #if debug "(NL)\n" #else "\n"#end;
+            } else {
+                returnMe += word + " ";
+            }
+        }
+        trace(returnMe);
+        return returnMe;
+    }
+
+    function getHeadcanonList() {
+        var theList:Array<String> = [];
+        if (testCharacter.headcanons.length > 0) {
+            for (head in testCharacter.headcanons) {
+                var hcIndex = testCharacter.headcanons.indexOf(head) + 1;
+                trace("addin hc " + hcIndex + " of " + testCharacter.headcanons.length + ".");
+                theList.push(head.headCanon);
+            }
+        } else {
+            theList.push("NO HEADCANONS");
+        }
+        return theList;
+    }
     override function update(elapsed:Float) {
         super.update(elapsed);
         if (theMouse != null) {
