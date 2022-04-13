@@ -3,11 +3,13 @@ package characterUtils;
 import haxe.Json;
 import haxe.extern.EitherType;
 import lime.system.Clipboard;
+import characterUtils.SpeciesThingie;
 using StringTools;
 
 typedef JsonFormat_CIMain = {
     var name:String;
     var ?nickname:String;
+    var species:EitherType<JsonFormat_Species, JsonFormat_Subspecies>;
     var birthday:Birthday;
     var height:Height;
     var languageList:Array<String>;
@@ -23,6 +25,7 @@ typedef JsonFormat_CIFS = {
 typedef JsonFormat_CIHC = {
     var headCanon:String;
     var since:String;
+    var ?imageName:String;
 }
 
 class CharInfoJsonUtil {
@@ -35,13 +38,27 @@ class CharInfoJsonUtil {
         for (FUCK in FuckMe.headcanons) {
             poop.push(new Headcanon(FUCK.headCanon, FUCK.since));
         }
+        var memeShit:Species;
+        var spicyBalls:Subspecies;
+        var theSpecies:Species;
+        var piss:Dynamic = FuckMe.species;
+        if (piss.extending == null) {
+            var horn:JsonFormat_Species = piss;
+            memeShit = new Species(horn.name, horn.desc, horn.media);
+            theSpecies = memeShit;
+        } else {
+            var knee:JsonFormat_Subspecies = piss;
+            spicyBalls = new Subspecies(knee.name, knee.desc, knee.extending, knee.isOfficial, knee.creatorName);
+            theSpecies = spicyBalls;
+        }
         var pissy:FavouriteStuff = new FavouriteStuff(FuckMe.favourites.MusicGenre, FuckMe.favourites.Colours, FuckMe.favourites.VideoGames, FuckMe.favourites.Aesthetic);
-        return new CharInfo(FuckMe.name, FuckMe.nickname, FuckMe.birthday, FuckMe.height, FuckMe.languageList, pissy, poop);
+        return new CharInfo(FuckMe.name, FuckMe.nickname, theSpecies, FuckMe.birthday, FuckMe.height, FuckMe.languageList, pissy, poop);
     }
 }
 class CharInfo {
     public var name:String;
     public var nickname:String;
+    public var species:Species;
     public var birthday:Birthday;
     public var height:Height;
     public var age:EitherType<Int, String>; // THIS GETS CALCULATED BASED ON THE CURRENT *YEAR* AND THE YEAR OF YOUR CHARACTER'S BIRTHDAY. IF YOU DON'T ADD THE YEAR, IT'LL SAY "UNKNOWN"
@@ -49,9 +66,10 @@ class CharInfo {
     public var favourites:FavouriteStuff;
     public var headcanons:Array<Headcanon>;
     private var INFO_SHIT:Array<Dynamic>;
-    public function new(name:String, ?nickname:String, birthday:Birthday, height:Height, languageList:Array<String>, favs:FavouriteStuff, hcs:Array<Headcanon>) {
+    public function new(name:String, ?nickname:String, species:Species, birthday:Birthday, height:Height, languageList:Array<String>, favs:FavouriteStuff, hcs:Array<Headcanon>) {
         this.name = name;
         if (nickname != null) this.nickname = nickname;
+        this.species = species;
         this.birthday = birthday;
         this.height = height;
         this.languageList = languageList;
@@ -66,6 +84,7 @@ class CharInfo {
         if (this.age != null) {
             INFO_SHIT.push("Age:" + this.age);
         }
+        species.onInfoCreate();
         #if debug trace(INFO_SHIT.join('\n')); #end
     }
 
@@ -109,7 +128,15 @@ class CharInfo {
             return ret;
         }
     }
-    var monthArray = [
+
+    public static function getSHIT(MONTH:Dynamic) {
+        if (MONTH is String) return MONTH;
+        else {
+            var ret:String = monthArray[Std.int(MONTH - 1)];
+            return ret;
+        }
+    }
+    static var monthArray = [
         "January",
         "February",
         "March",
@@ -128,12 +155,17 @@ class CharInfo {
 class Headcanon {
     public var headCanon:String;
     public var since:String;
+    public var imageName:String;
     private var INFO_SHIT:Array<String> = [];
-    public function new(hc:String, since:String) {
+    public function new(hc:String, since:String, ?picName:String) {
         this.headCanon = hc;
         this.since = since;
         INFO_SHIT = ["Headcanon: " + this.headCanon,
                     "Since: " + this.since];
+        if (picName != null) {
+            this.imageName = picName;
+            INFO_SHIT.push("Image file:" + this.imageName);
+        }
         #if debug trace(INFO_SHIT); #end
     }
 }
