@@ -13,6 +13,7 @@ import flixel.tweens.FlxTween;
 import flixel.*;
 import extraShit.BackgroundSprite;
 import characterUtils.CharInfo;
+import characterUtils.InfoUtils;
 import CustomMouseCursor;
 using StringTools;
 
@@ -49,12 +50,15 @@ class SelectorState extends FlxState {
     
     In all seriousness, this variable will be the *name* of the character you select in this state.*/
     var jiafei:String = "product";
+    var actionThingy:String = #if !mobile "Press ENTER" #else "Tap the OK button" #end;
     var charList:Array<String> = [];
     var curList:Array<String> = [];
-    var ALPH:Array<String> = [#if !mobile "Press ENTER to sort alphabetically." #else "Tap the OK button to sort alphabetically." #end];
-    var SPEC:Array<String> = [#if !mobile "Press ENTER to sort by species." #else "Tap the OK button to sort by species." #end];
+    var ALPH:Array<String> = [];
+    var SPEC:Array<String> = [];
     public function new() {
         super();
+        ALPH.push(actionThingy + " to sort alphabetically.");
+        SPEC.push(actionThingy + " to sort by species.");
         #if !debug
         if (FileUtils.fileExists("charlist.txt")) {
             charList = FileUtils.getTextContent("charlist.txt", null, true, "\n"); //idk
@@ -62,6 +66,7 @@ class SelectorState extends FlxState {
             throw new haxe.Exception("No character list found.");
         }
         #else
+        trace(InfoUtils.getSpeciesInfo("Mini-con", false).getInfo());
         charList = ["Sus", "Gear (Won't Crash)"];
         #end
     }
