@@ -4,10 +4,12 @@ package characterUtils;
 /**This json format exists for the character info JSONs. It'll make species stuff a *bit* easier to manage.
     
 @param name The species (or subspecies) name
-@param isSubspecies If your character is part of a subspecies, set this to true. Otherwise, set this to false.*/
+@param isSub If your character is part of a subspecies, set this to true. Otherwise, set this to false.
+@param parent The parent species of the subspecies (optional if isSub is false!)*/
 typedef JsonFormat_SpeciesInfo = {
     var name:String;
-    var isSubspecies:Bool;
+    var isSub:Bool;
+    var ?parent:String;
 }
 /**A json format for a species.
     
