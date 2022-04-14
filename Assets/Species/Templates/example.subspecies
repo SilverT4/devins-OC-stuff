@@ -1,0 +1,7 @@
+{
+    "name": "Example Subspecies",
+    "desc": "Example subspecies",
+    "extending": "Example species",
+    "isOfficial": true, // set this to false if it's not officially in the parent species' source media
+    "creatorName": "devin503" // feel free to credit whoever made the subspecies. this will be ignored if isOfficial is true, but you can add it regardless. lmfao
+}
