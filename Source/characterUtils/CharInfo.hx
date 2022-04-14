@@ -9,7 +9,7 @@ using StringTools;
 typedef JsonFormat_CIMain = {
     var name:String;
     var ?nickname:String;
-    var species:EitherType<JsonFormat_Species, JsonFormat_Subspecies>;
+    var species:JsonFormat_SpeciesInfo;
     var birthday:Birthday;
     var height:Height;
     var languageList:Array<String>;
@@ -25,6 +25,7 @@ typedef JsonFormat_CIFS = {
 typedef JsonFormat_CIHC = {
     var headCanon:String;
     var since:String;
+    var ?expandInfo:String;
     var ?imageName:String;
 }
 
