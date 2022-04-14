@@ -1,40 +1,44 @@
 {
-	"name": "Whore",
-    "nickname": "CupcakKe",
-    "birthday": {
-		"day": 9,
-		"month": "June", // This can be either a string OR an int!
-		"year": 1969 // THIS FIELD IS OPTIONAL, YOU CAN LEAVE IT OUT AND JUST HAVE THE DAY/MONTH!!
+	"birthday": {
+		"day": 1,
+		"month": "January",
+		"year": 2001
 	},
-    "height": {
-		"ft": 6,
-		"inch": 9
-	},
-	"languageList": [
-		"English",
-		"Pissy",
-        "Sex"
-	],
-    "favourites": {
-		"MusicGenre": "Chillhop",
+	"favourites": {
+		"MusicGenre": "Soundtrack",
 		"Colours": [
-			"Yellow",
-			"Red"
+			"Blue",
+			"Green",
+			"White"
 		],
-		"Aesthetic": "Grunge",
+		"Aesthetic": "Pastel",
 		"VideoGames": [
 			"Among Us",
 			"Animal Crossing"
 		]
 	},
-    "headcanons": [
+	"species": {
+		"name": "Example Species",
+		"isSub": true,
+		"parent": "Test Shit"
+	},
+	"headcanons": [
 		{
-			"headCanon": "Had sex with your mother",
-			"since": "69 hours ago"
-		},
-		{
-			"headCanon": "Always finds itself to be funny",
-			"since": "It existed"
+			"headCanon": "eeeee",
+			"imageName": "ass",
+			"expandInfo": "Your mom",
+			"since": "pee"
 		}
+	],
+	"height": {
+		"ft": 5,
+		"inch": 3
+	},
+	"nickname": "AMONG US!!",
+	"name": "Test Character",
+	"languageList": [
+		"English",
+		"German",
+		"Sus"
 	]
 }
