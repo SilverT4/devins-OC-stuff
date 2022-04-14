@@ -46,7 +46,7 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat(FileUtils.getFont("HPSimplified_Rg.ttf", true), 11, color);
+		defaultTextFormat = new TextFormat(FileUtils.getFont("HPSimplified_Rg.ttf", true), 12, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
